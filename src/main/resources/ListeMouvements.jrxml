@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ListeMouvements" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="b332b5f9-d3f5-4b53-8f14-1edac17922b8">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="PrmNomUtil" class="java.lang.String"/>
+	<parameter name="PrmPrenomUtil" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[SELECT
+     mouvement.`code` AS mouvement_code,
+     mouvement.`description` AS mouvement_description,
+     mouvement.`dateMouvement` AS mouvement_dateMouvement,
+     mouvement.`codeProduit` AS mouvement_codeProduit,
+     mouvement.`quantiteProduit` AS mouvement_quantiteProduit,
+     mouvement.`sens` AS mouvement_sens,
+     produit.`code` AS produit_code,
+     produit.`nom` AS produit_nom,
+     produit.`prixUnitaire` AS produit_prixUnitaire,
+     produit.`quantiteStock` AS produit_quantiteStock,
+     produit.`codeType` AS produit_codeType,
+     produit.`genre` AS produit_genre
+FROM
+     `produit` produit INNER JOIN `mouvement` mouvement ON produit.`code` = mouvement.`codeProduit`]]>
+	</queryString>
+	<field name="mouvement_code" class="java.lang.Integer"/>
+	<field name="mouvement_description" class="java.lang.String"/>
+	<field name="mouvement_dateMouvement" class="java.sql.Date"/>
+	<field name="mouvement_codeProduit" class="java.lang.Integer"/>
+	<field name="mouvement_quantiteProduit" class="java.lang.Integer"/>
+	<field name="mouvement_sens" class="java.lang.Integer"/>
+	<field name="produit_code" class="java.lang.Integer"/>
+	<field name="produit_nom" class="java.lang.String"/>
+	<field name="produit_prixUnitaire" class="java.lang.Double"/>
+	<field name="produit_quantiteStock" class="java.lang.Integer"/>
+	<field name="produit_codeType" class="java.lang.Integer"/>
+	<field name="produit_genre" class="java.lang.Integer"/>
+	<variable name="utilisateur" class="java.lang.String">
+		<variableExpression><![CDATA[$P{PrmPrenomUtil}+" "+$P{PrmNomUtil}]]></variableExpression>
+	</variable>
+	<variable name="dateEdit" class="java.util.Date">
+		<variableExpression><![CDATA[new Date()]]></variableExpression>
+	</variable>
+	<variable name="VarSens" class="java.lang.String">
+		<variableExpression><![CDATA[$F{mouvement_sens}==0?"Entrer En Stock":"Sortie En Stock"]]></variableExpression>
+	</variable>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="34" splitType="Stretch">
+			<staticText>
+				<reportElement x="140" y="0" width="259" height="25" uuid="3cefa37d-674f-4584-8f9b-e94c809df91f"/>
+				<textElement>
+					<font size="16" isBold="true"/>
+				</textElement>
+				<text><![CDATA[SOKAH Logistics & Services Sarl]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="35" splitType="Stretch">
+			<staticText>
+				<reportElement x="56" y="0" width="445" height="35" uuid="4c0305cc-9865-46d8-b94b-62f85ccf96bc"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="16" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Liste des Mouvements de Stokage]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="38" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="155" height="38" uuid="9a656ed9-37f4-4bf2-ba3f-cb5aafa11f9b"/>
+				<box>
+					<topPen lineWidth="0.75"/>
+					<leftPen lineWidth="0.75"/>
+					<bottomPen lineWidth="0.75"/>
+					<rightPen lineWidth="0.75"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Description du Mouvement]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="155" y="0" width="100" height="38" uuid="8f9010ab-b941-4eca-b2e0-3e2afc711121"/>
+				<box>
+					<topPen lineWidth="0.75"/>
+					<leftPen lineWidth="0.75"/>
+					<bottomPen lineWidth="0.75"/>
+					<rightPen lineWidth="0.75"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Nom]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="255" y="0" width="100" height="38" uuid="519ef29b-9993-403c-9f97-baefef7cde27"/>
+				<box>
+					<topPen lineWidth="0.75"/>
+					<leftPen lineWidth="0.75"/>
+					<bottomPen lineWidth="0.75"/>
+					<rightPen lineWidth="0.75"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Quantité]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="355" y="0" width="100" height="38" uuid="62c007ad-0aee-4060-8666-801b20e78e89"/>
+				<box>
+					<topPen lineWidth="0.75"/>
+					<leftPen lineWidth="0.75"/>
+					<bottomPen lineWidth="0.75"/>
+					<rightPen lineWidth="0.75"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Date de Mouvement]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="455" y="0" width="100" height="38" uuid="d1eb0e8c-e1a8-4c77-bef4-0b6cac8793dd"/>
+				<box>
+					<topPen lineWidth="0.75"/>
+					<leftPen lineWidth="0.75"/>
+					<bottomPen lineWidth="0.75"/>
+					<rightPen lineWidth="0.75"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Sens De Mouvement]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="20" splitType="Stretch">
+			<textField isBlankWhenNull="true">
+				<reportElement x="0" y="0" width="155" height="20" uuid="9bba1e7a-84a4-42da-9d68-9d41364b6d41"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{mouvement_description}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="155" y="0" width="100" height="20" uuid="5c6a0979-c56a-49a4-91af-af4f6d7d68fe"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{produit_nom}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="255" y="0" width="100" height="20" uuid="3704710d-63a1-4996-83ac-44e2f2d534fd"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{mouvement_quantiteProduit}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
+				<reportElement x="355" y="0" width="100" height="20" uuid="8f052d90-752e-4fdd-8acc-fe27211c79ba"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{mouvement_dateMouvement}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="455" y="0" width="100" height="20" uuid="cce1daed-133a-4100-b3ec-bb9f6108d413"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$V{VarSens}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="66" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="46" width="555" height="20" uuid="01b61702-c44e-49b5-a131-908d0ef708e6"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[Société SOH KENGNE Achille Hermann Logistics & Services. Capital Social : FCFA 1 000 000]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="293" y="16" width="24" height="20" uuid="5a78a1cf-a7bd-4462-afb9-3805d938e11f"/>
+				<text><![CDATA[par]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="146" y="16" width="52" height="20" uuid="0ade2fa3-1ab7-4129-be76-670227b50b6d"/>
+				<text><![CDATA[éditer le ]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="317" y="16" width="100" height="20" uuid="ce9daad9-cc49-4882-b89e-69adc913d194"/>
+				<textFieldExpression><![CDATA[$V{utilisateur}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="198" y="16" width="100" height="20" uuid="3d149297-384b-441e-9623-5ba922bab129"/>
+				<textFieldExpression><![CDATA[$V{dateEdit}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

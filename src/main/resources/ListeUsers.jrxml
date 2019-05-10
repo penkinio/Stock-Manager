@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ListeUsers" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="6f4e98f7-4693-4097-a0bb-64d05650d7db">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="PrmNomUtil" class="java.lang.String"/>
+	<parameter name="PrmPrenomUtil" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[SELECT
+     utilisateur.`code` AS utilisateur_code,
+     utilisateur.`nom` AS utilisateur_nom,
+     utilisateur.`prenom` AS utilisateur_prenom,
+     utilisateur.`username` AS utilisateur_username,
+     utilisateur.`passwd` AS utilisateur_passwd,
+     utilisateur.`role` AS utilisateur_role,
+     utilisateur.`status` AS utilisateur_status
+FROM
+     `utilisateur` utilisateur]]>
+	</queryString>
+	<field name="utilisateur_code" class="java.lang.Integer"/>
+	<field name="utilisateur_nom" class="java.lang.String"/>
+	<field name="utilisateur_prenom" class="java.lang.String"/>
+	<field name="utilisateur_username" class="java.lang.String"/>
+	<field name="utilisateur_passwd" class="java.lang.String"/>
+	<field name="utilisateur_role" class="java.lang.Integer"/>
+	<field name="utilisateur_status" class="java.lang.Integer"/>
+	<variable name="dateEdit" class="java.util.Date">
+		<variableExpression><![CDATA[new Date()]]></variableExpression>
+	</variable>
+	<variable name="utilisateur" class="java.lang.String">
+		<variableExpression><![CDATA[$P{PrmPrenomUtil}+" "+$P{PrmNomUtil}]]></variableExpression>
+	</variable>
+	<variable name="VarRole" class="java.lang.String">
+		<variableExpression><![CDATA[$F{utilisateur_role}==0?"Employer":($F{utilisateur_role}==1)?"Administrateur":($F{utilisateur_role}==2)?"Administrateur Principal":"Controleur"]]></variableExpression>
+	</variable>
+	<variable name="VarStatus" class="java.lang.String">
+		<variableExpression><![CDATA[$F{utilisateur_status}==0?"Actif":"Suspendu"]]></variableExpression>
+	</variable>
+	<group name="utilisateur_role">
+		<groupExpression><![CDATA[$F{utilisateur_role}]]></groupExpression>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="34" splitType="Stretch">
+			<staticText>
+				<reportElement x="138" y="0" width="259" height="25" uuid="6fd16b6f-7ab3-4d0f-8262-6aa7364fe7a4"/>
+				<textElement>
+					<font size="16" isBold="true"/>
+				</textElement>
+				<text><![CDATA[SOKAH Logistics & Services Sarl]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="35" splitType="Stretch">
+			<staticText>
+				<reportElement x="46" y="0" width="445" height="35" uuid="4bc37a23-4d6f-4c55-a121-534275bf2b13"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="16" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Liste des Utilisateurs]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="36" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="117" height="36" uuid="7f10ff7f-d38a-4b2e-8821-ada1a5b8b32c"/>
+				<box>
+					<topPen lineWidth="0.75"/>
+					<leftPen lineWidth="0.75"/>
+					<bottomPen lineWidth="0.75"/>
+					<rightPen lineWidth="0.75"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Nom]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="117" y="0" width="100" height="36" uuid="a374de90-ca1e-4ab5-b787-2841af0299b4"/>
+				<box>
+					<topPen lineWidth="0.75"/>
+					<leftPen lineWidth="0.75"/>
+					<bottomPen lineWidth="0.75"/>
+					<rightPen lineWidth="0.75"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Prenom]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="217" y="0" width="100" height="36" uuid="c1cbd7a7-06f5-43c3-b327-d892a72607cc"/>
+				<box>
+					<topPen lineWidth="0.75"/>
+					<leftPen lineWidth="0.75"/>
+					<bottomPen lineWidth="0.75"/>
+					<rightPen lineWidth="0.75"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Nom Utilisateur]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="317" y="0" width="100" height="36" uuid="ef8d3ce0-569c-46cf-af6c-e0c82e11f319"/>
+				<box>
+					<topPen lineWidth="0.75"/>
+					<leftPen lineWidth="0.75"/>
+					<bottomPen lineWidth="0.75"/>
+					<rightPen lineWidth="0.75"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Status Utilisateur]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="417" y="0" width="138" height="36" uuid="070cdbbd-81e9-4e4e-84a3-dea6eda4c136"/>
+				<box>
+					<topPen lineWidth="0.75"/>
+					<leftPen lineWidth="0.75"/>
+					<bottomPen lineWidth="0.75"/>
+					<rightPen lineWidth="0.75"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Role Utilisateur]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="20" splitType="Stretch">
+			<textField isBlankWhenNull="true">
+				<reportElement x="0" y="0" width="117" height="20" uuid="0384f38e-64cd-434c-8f5e-5a88cc90365c"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{utilisateur_nom}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="117" y="0" width="100" height="20" uuid="de8f910c-1e6f-4f52-b8bd-d810810df3c6"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{utilisateur_prenom}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="217" y="0" width="100" height="20" uuid="dfb57789-a990-4590-a00c-7f5937151611"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{utilisateur_username}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="317" y="0" width="100" height="20" uuid="aed5d055-4041-4ed7-ba26-597222d32000"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{utilisateur_status}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="417" y="0" width="138" height="20" uuid="f99e3806-39ed-4c79-af31-7d061fe144b4"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$V{VarRole}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="66" splitType="Stretch">
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="188" y="11" width="100" height="20" uuid="10f4b4ef-f6c6-49c3-9269-e3765138a2c3"/>
+				<textFieldExpression><![CDATA[$V{dateEdit}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="136" y="11" width="52" height="20" uuid="eccb7175-573b-4e84-bff6-d5d253597ab0"/>
+				<text><![CDATA[éditer le ]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="307" y="11" width="100" height="20" uuid="bdf3cfaa-79fb-4c7d-8949-f1a40f8206db"/>
+				<textFieldExpression><![CDATA[$V{utilisateur}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="44" width="555" height="20" uuid="6a519ef6-fdba-4fd6-a9e1-a0ec3c2551d6"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[Société SOH KENGNE Achille Hermann Logistics & Services. Capital Social : FCFA 1 000 000]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="283" y="11" width="24" height="20" uuid="0bb59b12-c2f0-4726-a12d-2184d0afcf06"/>
+				<text><![CDATA[par]]></text>
+			</staticText>
+		</band>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

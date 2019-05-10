@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="livraison" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="c8764ba2-621e-4936-93d8-a324305c207a">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="PrmLivraison" class="java.lang.String"/>
+	<parameter name="PrmNomClient" class="java.lang.String"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["C:\\Users\\Maurice\\Documents\\NetBeansProjects\\Stock-Manager\\src\\main\\java\\com\\stockmanager\\report\\jasper\\"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="PrmNomUtil" class="java.lang.String"/>
+	<parameter name="PrmPrenomUtil" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[SELECT
+     livraison.`code` AS livraison_code,
+     livraison.`ordreLivraison` AS livraison_ordreLivraison,
+     livraison.`description` AS livraison_description,
+     livraison.`codeFacture` AS livraison_codeFacture,
+     livraison.`etat` AS livraison_etat,
+     livraison.`dateLivraison` AS livraison_dateLivraison,
+     facture.`code` AS facture_code,
+     facture.`numeroFacture` AS facture_numeroFacture,
+     facture.`nomClient` AS facture_nomClient,
+     facture.`dateFacture` AS facture_dateFacture,
+     facture.`etat` AS facture_etat
+FROM
+     `livraison` livraison INNER JOIN `facture` facture ON livraison.`codeFacture` = facture.`code`
+WHERE
+livraison.`ordreLivraison` = $P{PrmLivraison}
+     and facture.`nomClient` = $P{PrmNomClient}]]>
+	</queryString>
+	<field name="livraison_code" class="java.lang.Integer"/>
+	<field name="livraison_ordreLivraison" class="java.lang.String"/>
+	<field name="livraison_description" class="java.lang.String"/>
+	<field name="livraison_codeFacture" class="java.lang.Integer"/>
+	<field name="livraison_etat" class="java.lang.Integer"/>
+	<field name="livraison_dateLivraison" class="java.sql.Date"/>
+	<field name="facture_code" class="java.lang.Integer"/>
+	<field name="facture_numeroFacture" class="java.lang.String"/>
+	<field name="facture_nomClient" class="java.lang.String"/>
+	<field name="facture_dateFacture" class="java.sql.Date"/>
+	<field name="facture_etat" class="java.lang.Integer"/>
+	<variable name="dateEdit" class="java.util.Date">
+		<variableExpression><![CDATA[new Date()]]></variableExpression>
+	</variable>
+	<variable name="utilisateur" class="java.lang.String">
+		<variableExpression><![CDATA[$P{PrmPrenomUtil}+" "+$P{PrmNomUtil}]]></variableExpression>
+	</variable>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="28" splitType="Stretch">
+			<staticText>
+				<reportElement x="242" y="0" width="259" height="25" uuid="e3239596-b5f3-4d3f-8f86-d697d45d5d5a"/>
+				<textElement>
+					<font size="16" isBold="true"/>
+				</textElement>
+				<text><![CDATA[SOKAH Logistics & Services Sarl]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="94" splitType="Stretch">
+			<staticText>
+				<reportElement x="193" y="13" width="196" height="20" uuid="3d87b315-f87d-4ea2-aaad-a1a9c1472a9a"/>
+				<textElement>
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Bordoreau De Livraison N°]]></text>
+			</staticText>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="256" y="66" width="304" height="20" uuid="57c430ec-69a0-4983-a211-be7937fe8ce3"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{facture_dateFacture}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="130" y="46" width="126" height="20" uuid="c3573cd6-9131-4e82-8dde-3dda20b53629"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[Nom Du Client          :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="130" y="66" width="126" height="20" uuid="0bd1b8e1-296d-4e2e-ab99-b6614f9310e2"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[Date De Facturation :]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="256" y="46" width="245" height="20" uuid="12d81a63-8cd4-409e-9b36-dc09bdc83bc4"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{facture_nomClient}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="389" y="13" width="218" height="20" uuid="711e7c3a-5979-494f-853e-0dfa0ed286d4"/>
+				<textElement>
+					<font size="14" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{livraison_ordreLivraison}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="51" splitType="Stretch">
+			<subreport>
+				<reportElement x="0" y="0" width="79" height="45" uuid="e38b0825-bae0-415f-9193-94808d4d64e5"/>
+				<subreportParameter name="PrmLivraison">
+					<subreportParameterExpression><![CDATA[$P{PrmLivraison}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="PrmNomClient">
+					<subreportParameterExpression><![CDATA[$P{PrmNomClient}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="PrmFacture"/>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "listeLivraisonEcheance.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="93" splitType="Stretch">
+			<staticText>
+				<reportElement x="79" y="0" width="100" height="20" uuid="2bde1c61-c85f-44d4-8956-0acf22527509"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[Client]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="583" y="0" width="100" height="20" uuid="cbdf160c-c48b-49d3-b87f-1112b880ef27"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[Magasignier]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="413" y="38" width="100" height="20" uuid="986fbd2b-9c3f-483e-9bb4-8526086a0a64"/>
+				<textFieldExpression><![CDATA[$V{utilisateur}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="258" y="38" width="53" height="20" uuid="8d5c0757-24a8-481f-bb3d-0aefa1d4a846"/>
+				<text><![CDATA[éditer le ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="389" y="38" width="24" height="20" uuid="8930a995-3829-4691-bb3f-ef86df4dbe6e"/>
+				<text><![CDATA[par]]></text>
+			</staticText>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="310" y="38" width="79" height="20" uuid="9192139a-ed8f-4bfd-be23-c479b7c49390"/>
+				<textFieldExpression><![CDATA[$V{dateEdit}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="583" y="21" width="125" height="1" uuid="bcde83c2-616c-4f93-8fbf-52573a62c70d"/>
+			</line>
+			<line>
+				<reportElement x="582" y="22" width="1" height="48" uuid="d214367d-1b48-4cb7-aa86-61d44dcc069b"/>
+			</line>
+			<line>
+				<reportElement x="203" y="20" width="1" height="50" uuid="4c2d9ad7-332b-4d2f-9697-b2f974470411"/>
+			</line>
+			<line>
+				<reportElement x="79" y="20" width="124" height="1" uuid="59ef8c7f-5525-4441-8c1e-4f8393c3ca57"/>
+			</line>
+		</band>
+	</columnFooter>
+	<pageFooter>
+		<band height="20" splitType="Stretch">
+			<staticText>
+				<reportElement x="89" y="0" width="555" height="20" uuid="a336ffb6-628d-4c2e-8ae3-4fdc0d4f6600"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[Société SOH KENGNE Achille Hermann Logistics & Services. Capital Social : FCFA 1 000 000]]></text>
+			</staticText>
+		</band>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

@@ -1,0 +1,299 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ListeAchats" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="8efe4133-e178-403c-838c-6bff5ccbe1ae">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="39"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="PrmNomUtil" class="java.lang.String"/>
+	<parameter name="PrmPrenomUtil" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[SELECT
+     achat.`codeFournisseur` AS achat_codeFournisseur,
+     achat.`codeProduit` AS achat_codeProduit,
+     achat.`reference` AS achat_reference,
+     achat.`prixUniteAchat` AS achat_prixUniteAchat,
+     achat.`quantite` AS achat_quantite,
+     achat.`dateAchat` AS achat_dateAchat,
+     achat.`etat` AS achat_etat,
+     fournisseur.`code` AS fournisseur_code,
+     fournisseur.`nom` AS fournisseur_nom,
+     fournisseur.`contact` AS fournisseur_contact,
+     fournisseur.`ville` AS fournisseur_ville,
+     fournisseur.`localisation` AS fournisseur_localisation,
+     fournisseur.`email` AS fournisseur_email,
+     fournisseur.`pays` AS fournisseur_pays,
+     fournisseur.`boitePostal` AS fournisseur_boitePostal,
+     fournisseur.`siteWeb` AS fournisseur_siteWeb,
+     produit.`code` AS produit_code,
+     produit.`nom` AS produit_nom,
+     produit.`prixUnitaire` AS produit_prixUnitaire,
+     produit.`quantiteStock` AS produit_quantiteStock,
+     produit.`codeType` AS produit_codeType,
+     produit.`genre` AS produit_genre
+FROM
+     `achat` achat INNER JOIN `fournisseur` fournisseur ON achat.`codeFournisseur` = fournisseur.`code`
+     INNER JOIN `produit` produit ON achat.`codeProduit` = produit.`code`]]>
+	</queryString>
+	<field name="achat_codeFournisseur" class="java.lang.Integer"/>
+	<field name="achat_codeProduit" class="java.lang.Integer"/>
+	<field name="achat_reference" class="java.lang.String"/>
+	<field name="achat_prixUniteAchat" class="java.lang.Double"/>
+	<field name="achat_quantite" class="java.lang.Integer"/>
+	<field name="achat_dateAchat" class="java.sql.Date"/>
+	<field name="achat_etat" class="java.lang.Integer"/>
+	<field name="fournisseur_code" class="java.lang.Integer"/>
+	<field name="fournisseur_nom" class="java.lang.String"/>
+	<field name="fournisseur_contact" class="java.lang.String"/>
+	<field name="fournisseur_ville" class="java.lang.String"/>
+	<field name="fournisseur_localisation" class="java.lang.String"/>
+	<field name="fournisseur_email" class="java.lang.String"/>
+	<field name="fournisseur_pays" class="java.lang.String"/>
+	<field name="fournisseur_boitePostal" class="java.lang.String"/>
+	<field name="fournisseur_siteWeb" class="java.lang.String"/>
+	<field name="produit_code" class="java.lang.Integer"/>
+	<field name="produit_nom" class="java.lang.String"/>
+	<field name="produit_prixUnitaire" class="java.lang.Double"/>
+	<field name="produit_quantiteStock" class="java.lang.Integer"/>
+	<field name="produit_codeType" class="java.lang.Integer"/>
+	<field name="produit_genre" class="java.lang.Integer"/>
+	<variable name="dateEdit" class="java.util.Date">
+		<variableExpression><![CDATA[new Date()]]></variableExpression>
+	</variable>
+	<variable name="utilisateur" class="java.lang.String">
+		<variableExpression><![CDATA[$P{PrmPrenomUtil}+" "+$P{PrmNomUtil}]]></variableExpression>
+	</variable>
+	<variable name="VarPrixTotal" class="java.lang.Double">
+		<variableExpression><![CDATA[$F{achat_prixUniteAchat}*$F{achat_quantite}]]></variableExpression>
+	</variable>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="30" splitType="Stretch">
+			<staticText>
+				<reportElement x="256" y="0" width="259" height="25" uuid="19539423-1973-4f9f-80c5-7cac43130f04"/>
+				<textElement>
+					<font size="16" isBold="true"/>
+				</textElement>
+				<text><![CDATA[SOKAH Logistics & Services Sarl]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="35" splitType="Stretch">
+			<staticText>
+				<reportElement x="180" y="0" width="445" height="35" uuid="fafb5759-18cd-4635-af13-43a2d728976c"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="16" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Liste des Achats]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="37" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="150" height="37" uuid="7f9bc5d8-6224-4409-a1c3-85a6d12a6265"/>
+				<box>
+					<topPen lineWidth="0.75"/>
+					<leftPen lineWidth="0.75"/>
+					<bottomPen lineWidth="0.75"/>
+					<rightPen lineWidth="0.75"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Nom du Produit]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="150" y="0" width="100" height="37" uuid="63b928ef-a1d0-4d7e-b084-7a062f572a29"/>
+				<box>
+					<topPen lineWidth="0.75"/>
+					<leftPen lineWidth="0.75"/>
+					<bottomPen lineWidth="0.75"/>
+					<rightPen lineWidth="0.75"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Fournisseur]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="250" y="0" width="138" height="37" uuid="867b8334-9802-438e-a835-4f23bbbafbe8"/>
+				<box>
+					<topPen lineWidth="0.75"/>
+					<leftPen lineWidth="0.75"/>
+					<bottomPen lineWidth="0.75"/>
+					<rightPen lineWidth="0.75"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Reference]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="388" y="0" width="98" height="37" uuid="bc08e061-01a6-4f0f-9b41-65dca89fda9f"/>
+				<box>
+					<topPen lineWidth="0.75"/>
+					<leftPen lineWidth="0.75"/>
+					<bottomPen lineWidth="0.75"/>
+					<rightPen lineWidth="0.75"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Prix d'achat Unitaire]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="486" y="0" width="86" height="37" uuid="590d8550-be0e-4318-b11b-7457e7ac0897"/>
+				<box>
+					<topPen lineWidth="0.75"/>
+					<leftPen lineWidth="0.75"/>
+					<bottomPen lineWidth="0.75"/>
+					<rightPen lineWidth="0.75"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Quantité]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="572" y="0" width="128" height="37" uuid="48c79349-3d31-478c-b5c3-e11d2938d80a"/>
+				<box>
+					<topPen lineWidth="0.75"/>
+					<leftPen lineWidth="0.75"/>
+					<bottomPen lineWidth="0.75"/>
+					<rightPen lineWidth="0.75"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Prix Total]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="700" y="0" width="100" height="37" uuid="d7026451-c285-42f9-b1d0-47c2c5fb55ab"/>
+				<box>
+					<topPen lineWidth="0.75"/>
+					<leftPen lineWidth="0.75"/>
+					<bottomPen lineWidth="0.75"/>
+					<rightPen lineWidth="0.75"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Date]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="20" splitType="Stretch">
+			<textField isBlankWhenNull="true">
+				<reportElement x="0" y="0" width="150" height="20" uuid="2f45bdb2-ccb2-4ed3-aea5-1e1086e4d2b5"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{produit_nom}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="150" y="0" width="100" height="20" uuid="0b0a60c8-b910-46e7-89c0-caefcba29ced"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{fournisseur_nom}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="250" y="0" width="138" height="20" uuid="b8f337b1-7de2-4276-8d8e-cf0943ff3575"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{achat_reference}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0" isBlankWhenNull="true">
+				<reportElement x="388" y="0" width="98" height="20" uuid="5792d5ba-a00c-4da6-b6f4-9e7282b7963e"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{achat_prixUniteAchat}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="486" y="0" width="86" height="20" uuid="46e32ded-c4f4-4f5d-8a0b-bc96b54d577d"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{achat_quantite}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0" isBlankWhenNull="true">
+				<reportElement x="572" y="0" width="128" height="20" uuid="f762bf29-668e-4d46-96e9-45bf85fca5c8"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$V{VarPrixTotal}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
+				<reportElement x="700" y="0" width="100" height="20" uuid="e8241110-af99-4d72-af0e-6912606bd61d"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{achat_dateAchat}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="88" splitType="Stretch">
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="295" y="16" width="100" height="20" uuid="c263ede9-e4e9-408f-bd4b-fc8691a5a791"/>
+				<textFieldExpression><![CDATA[$V{dateEdit}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="243" y="16" width="52" height="20" uuid="d9a86f56-37b8-4ca3-8c66-c12d22d09633"/>
+				<text><![CDATA[éditer le ]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="414" y="16" width="100" height="20" uuid="e9a87d81-4109-4ed3-83e6-9a638a849ee9"/>
+				<textFieldExpression><![CDATA[$V{utilisateur}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="91" y="57" width="555" height="20" uuid="8bbe2def-8ee0-4118-9257-968c960c5967"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[Société SOH KENGNE Achille Hermann Logistics & Services. Capital Social : FCFA 1 000 000]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="390" y="16" width="24" height="20" uuid="c7e51b25-81ea-40cd-a124-e88a1b5730cb"/>
+				<text><![CDATA[par]]></text>
+			</staticText>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

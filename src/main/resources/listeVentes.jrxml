@@ -1,0 +1,338 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="listeVentes" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="af5ff226-d393-4939-af6f-90fb4a206360">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="PrmFacture" class="java.lang.String"/>
+	<parameter name="PrmTva" class="java.lang.Boolean"/>
+	<queryString>
+		<![CDATA[SELECT
+     vente.`codeClient` AS vente_codeClient,
+     vente.`codeProduit` AS vente_codeProduit,
+     vente.`reference` AS vente_reference,
+     vente.`prixUniteVente` AS vente_prixUniteVente,
+     vente.`quantite` AS vente_quantite,
+     vente.`dateVente` AS vente_dateVente,
+     vente.`refFacture` AS vente_refFacture,
+     client.`code` AS client_code,
+     client.`nom` AS client_nom,
+     client.`contact` AS client_contact,
+     client.`ville` AS client_ville,
+     client.`localisation` AS client_localisation,
+     produit.`code` AS produit_code,
+     produit.`nom` AS produit_nom,
+     produit.`prixUnitaire` AS produit_prixUnitaire,
+     produit.`quantiteStock` AS produit_quantiteStock,
+     produit.`codeType` AS produit_codeType
+FROM
+     `vente` vente
+	inner join `client` client on vente.`codeClient` = client.`code`
+     inner join `produit` produit on vente.`codeProduit`= produit.`code`
+where
+	vente.`refFacture` = $P{PrmFacture}]]>
+	</queryString>
+	<field name="vente_codeClient" class="java.lang.Integer"/>
+	<field name="vente_codeProduit" class="java.lang.Integer"/>
+	<field name="vente_reference" class="java.lang.String"/>
+	<field name="vente_prixUniteVente" class="java.lang.Double"/>
+	<field name="vente_quantite" class="java.lang.Integer"/>
+	<field name="vente_dateVente" class="java.sql.Date"/>
+	<field name="vente_refFacture" class="java.lang.String"/>
+	<field name="client_code" class="java.lang.Integer"/>
+	<field name="client_nom" class="java.lang.String"/>
+	<field name="client_contact" class="java.lang.String"/>
+	<field name="client_ville" class="java.lang.String"/>
+	<field name="client_localisation" class="java.lang.String"/>
+	<field name="produit_code" class="java.lang.Integer"/>
+	<field name="produit_nom" class="java.lang.String"/>
+	<field name="produit_prixUnitaire" class="java.lang.Double"/>
+	<field name="produit_quantiteStock" class="java.lang.Integer"/>
+	<field name="produit_codeType" class="java.lang.Integer"/>
+	<variable name="prix_total" class="java.lang.Double">
+		<variableExpression><![CDATA[$F{vente_prixUniteVente}*$F{vente_quantite}]]></variableExpression>
+	</variable>
+	<variable name="MontantAPayer" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$V{prix_total}]]></variableExpression>
+	</variable>
+	<variable name="VarMontantTaxe" class="java.lang.Double">
+		<variableExpression><![CDATA[$P{PrmTva}?$V{MontantAPayer}*0.1925:0.0]]></variableExpression>
+	</variable>
+	<variable name="VarMontantTTC" class="java.lang.Double">
+		<variableExpression><![CDATA[$P{PrmTva}?$V{MontantAPayer}+$V{VarMontantTaxe}:$V{MontantAPayer}]]></variableExpression>
+	</variable>
+	<variable name="VarVide" class="java.lang.String">
+		<variableExpression><![CDATA[null]]></variableExpression>
+	</variable>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="28" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="100" height="28" uuid="7f4fe826-a11a-4686-ba12-4944c5f89daa"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Nom du Produit]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="100" y="0" width="100" height="28" uuid="c992029f-bd9b-4736-9f35-8ffcad40bc8e"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Quantite]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="200" y="0" width="100" height="28" uuid="0f00dc90-d2ea-4031-be85-4684c9306971"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Prix Unitaire]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="300" y="0" width="100" height="28" uuid="c9ebc89d-fdd4-4845-b8c5-24688f0cbc54"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Prix Total]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="400" y="0" width="144" height="28" uuid="93f84a03-5d5f-41a1-812d-9086f0c036c6"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Obervation]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="20" splitType="Stretch">
+			<textField isBlankWhenNull="true">
+				<reportElement x="0" y="0" width="100" height="20" uuid="057ba489-703e-45e8-a486-ff605118d69a"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{produit_nom}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="100" y="0" width="100" height="20" uuid="098d3308-29a9-4558-a6f8-15ac1a63f0b9"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{vente_quantite}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0" isBlankWhenNull="true">
+				<reportElement x="200" y="0" width="100" height="20" uuid="aec921e7-af32-4dde-ac63-98b17b3066cd"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{vente_prixUniteVente}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0" isBlankWhenNull="true">
+				<reportElement x="300" y="0" width="100" height="20" uuid="ae3520b8-9cfc-4c9b-bfc4-96c44c6f19ae"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$V{prix_total}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="400" y="0" width="144" height="20" uuid="037e0bf2-79cc-4e57-92b7-446d2ac819b2"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$V{VarVide}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="108" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="200" height="20" uuid="4bb84551-f949-4115-8406-39df9a6983dc"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Total Haut Taxe]]></text>
+			</staticText>
+			<textField pattern="#,##0">
+				<reportElement x="200" y="0" width="344" height="20" uuid="36fedf2c-4015-4189-9288-42326f830d75"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{MontantAPayer}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="88" width="214" height="20" uuid="95f8d7da-b91e-48d6-85fb-34f1290c9a02"/>
+				<textElement>
+					<font size="12" isBold="true" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[Arrété cette facture à la somme de :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="361" y="88" width="183" height="20" uuid="690ce2ff-70d5-4bf0-a64d-65088a37637e"/>
+				<textElement>
+					<font size="12" isBold="true" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[Francs CFA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="20" width="200" height="20" uuid="ad561165-28f5-48e9-a30b-6ed6b83543b3"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Taux TVA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="200" y="20" width="344" height="20" uuid="28089a2e-3b9a-4716-84d2-ae507e3e128c"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[19.25%]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="40" width="200" height="20" uuid="de91b9ad-d2e1-4bca-b945-74d3fe2264b8"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Montant Taxe]]></text>
+			</staticText>
+			<textField pattern="#,##0">
+				<reportElement x="200" y="40" width="344" height="20" uuid="aa692e17-7971-4f94-9c5d-3d497a254c05"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{VarMontantTaxe}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="60" width="200" height="20" uuid="a7b6cb28-16d0-4851-84e5-e2ab39efb986"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Montant TTC]]></text>
+			</staticText>
+			<textField pattern="#,##0">
+				<reportElement x="200" y="60" width="344" height="20" uuid="0333c75c-663f-4808-a369-a7ebeb45707c"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{VarMontantTTC}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0">
+				<reportElement x="214" y="88" width="147" height="20" uuid="4f2006ca-cb4d-4165-86b2-083b25aa6bb4"/>
+				<textElement>
+					<font size="12" isBold="true" isItalic="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{VarMontantTTC}]]></textFieldExpression>
+			</textField>
+		</band>
+	</columnFooter>
+	<pageFooter>
+		<band splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

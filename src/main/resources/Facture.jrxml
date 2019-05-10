@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Facture" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="8b6ba199-c281-4ff0-8f8e-7f64a764e855">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="PrmFacture" class="java.lang.String"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["..\\jasper\\"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="PrmNomUtil" class="java.lang.String"/>
+	<parameter name="PrmPrenomUtil" class="java.lang.String"/>
+	<parameter name="LOGO" class="java.io.InputStream"/>
+	<parameter name="PrmTva" class="java.lang.Boolean"/>
+	<queryString>
+		<![CDATA[SELECT
+     facture.`code` AS facture_code,
+     facture.`numeroFacture` AS facture_numeroFacture,
+     facture.`nomClient` AS facture_nomClient,
+     facture.`dateFacture` AS facture_dateFacture,
+     facture.`etat` AS facture_etat,
+     facture.`tva` AS facture_tva
+FROM
+     `facture` facture
+WHERE
+     facture.`numeroFacture` = $P{PrmFacture}]]>
+	</queryString>
+	<field name="facture_code" class="java.lang.Integer"/>
+	<field name="facture_numeroFacture" class="java.lang.String"/>
+	<field name="facture_nomClient" class="java.lang.String"/>
+	<field name="facture_dateFacture" class="java.sql.Date"/>
+	<field name="facture_etat" class="java.lang.Integer"/>
+	<field name="facture_tva" class="java.lang.Boolean"/>
+	<variable name="dateEdit" class="java.util.Date">
+		<variableExpression><![CDATA[new Date()]]></variableExpression>
+	</variable>
+	<variable name="utilisateur" class="java.lang.String">
+		<variableExpression><![CDATA[$P{PrmPrenomUtil}+" "+$P{PrmNomUtil}]]></variableExpression>
+	</variable>
+	<variable name="VarTva" class="java.lang.String">
+		<variableExpression><![CDATA[$F{facture_tva}?"OUI":"NON"]]></variableExpression>
+	</variable>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="58" splitType="Stretch">
+			<staticText>
+				<reportElement x="112" y="29" width="259" height="25" uuid="98070795-3c22-46c1-a69b-e888bfcd36a1"/>
+				<textElement>
+					<font size="16" isBold="true"/>
+				</textElement>
+				<text><![CDATA[SOKAH Logistics & Services Sarl]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="65" splitType="Stretch">
+			<staticText>
+				<reportElement x="94" y="0" width="159" height="20" uuid="9280cbe0-a024-4e1e-a5bb-c6d9ee14fadd"/>
+				<textElement>
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Bordoreau Facture N°]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="253" y="0" width="178" height="20" uuid="148fc882-cfcc-4e0e-8c65-61b1cc50303b"/>
+				<textElement>
+					<font size="14" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{facture_numeroFacture}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="20" width="126" height="20" uuid="2cb4f0d2-69e6-4922-9192-950d2bb9944c"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[Nom Du Client          :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="40" width="126" height="20" uuid="a79e7eaa-33d4-4fcd-8452-e87ef82b7525"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[Date De Facturation :]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="126" y="20" width="245" height="20" uuid="a594dab1-88af-4262-96b1-5239b83d4dc7"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{facture_nomClient}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="126" y="40" width="304" height="20" uuid="e8199d9f-1195-4d7a-8ece-237b65d6cd5a"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{facture_dateFacture}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="40" splitType="Stretch">
+			<subreport>
+				<reportElement x="0" y="0" width="200" height="40" uuid="7ff1cb86-4600-4363-8fb4-7767a06cc219"/>
+				<subreportParameter name="PrmFacture">
+					<subreportParameterExpression><![CDATA[$P{PrmFacture}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="PrmTva">
+					<subreportParameterExpression><![CDATA[$P{PrmTva}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "listeVentes.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="119" splitType="Stretch">
+			<staticText>
+				<reportElement x="431" y="1" width="100" height="20" uuid="bebca75c-9626-4892-8b1d-30bb0a83741c"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[Caissier]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="14" y="0" width="100" height="20" uuid="eea84572-3aff-431a-b423-b85fbb4ba5ba"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[Client]]></text>
+			</staticText>
+			<line>
+				<reportElement x="138" y="20" width="1" height="50" uuid="71a40e7b-bf68-405c-9ed5-881c59444384"/>
+			</line>
+			<line>
+				<reportElement x="14" y="20" width="124" height="1" uuid="8d504426-30cf-4a62-8482-8c025cbd3cc6"/>
+			</line>
+			<line>
+				<reportElement x="430" y="21" width="125" height="1" uuid="7f0654a4-caa8-44b4-918e-250f05d303c1"/>
+			</line>
+			<line>
+				<reportElement x="429" y="22" width="1" height="48" uuid="ea9f47a2-3dda-4f18-ba67-9dd33887b9f9"/>
+			</line>
+			<staticText>
+				<reportElement x="214" y="30" width="52" height="20" uuid="ba14159d-ba1d-4005-b738-0c61cd8f751d"/>
+				<text><![CDATA[éditer le ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="214" y="50" width="24" height="20" uuid="f5c1dd1a-0cad-4065-8f30-862a9ecb4d48"/>
+				<text><![CDATA[par]]></text>
+			</staticText>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="266" y="30" width="100" height="20" uuid="02fe90bd-c1eb-441f-82ab-ecd68caf5e21"/>
+				<textFieldExpression><![CDATA[$V{dateEdit}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="238" y="50" width="100" height="20" uuid="bc81e2ba-8776-49e1-a0e6-c398a403de6c"/>
+				<textFieldExpression><![CDATA[$V{utilisateur}]]></textFieldExpression>
+			</textField>
+		</band>
+	</columnFooter>
+	<pageFooter>
+		<band height="20" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="555" height="20" uuid="80ef64aa-81d5-4a38-8498-addb30ff0d76"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[Société SOH KENGNE Achille Hermann Logistics & Services. Capital Social : FCFA 1 000 000]]></text>
+			</staticText>
+		</band>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

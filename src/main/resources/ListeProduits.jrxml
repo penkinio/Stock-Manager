@@ -1,0 +1,254 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ListeProduits" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="f36a9eb1-51be-4e04-b7f8-e0059cc9a17b">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="PrmPrenomUtil" class="java.lang.String"/>
+	<parameter name="PrmNomUtil" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[SELECT
+     produit.`code` AS produit_code,
+     produit.`nom` AS produit_nom,
+     produit.`prixUnitaire` AS produit_prixUnitaire,
+     produit.`quantiteStock` AS produit_quantiteStock,
+     produit.`codeType` AS produit_codeType,
+     produit.`genre` AS produit_genre,
+     typeproduit.`code` AS typeproduit_code,
+     typeproduit.`libelle` AS typeproduit_libelle,
+     typeproduit.`localisation` AS typeproduit_localisation
+FROM
+     `typeproduit` typeproduit INNER JOIN `produit` produit ON typeproduit.`code` = produit.`codeType`]]>
+	</queryString>
+	<field name="produit_code" class="java.lang.Integer"/>
+	<field name="produit_nom" class="java.lang.String"/>
+	<field name="produit_prixUnitaire" class="java.lang.Double"/>
+	<field name="produit_quantiteStock" class="java.lang.Integer"/>
+	<field name="produit_codeType" class="java.lang.Integer"/>
+	<field name="produit_genre" class="java.lang.Integer"/>
+	<field name="typeproduit_code" class="java.lang.Integer"/>
+	<field name="typeproduit_libelle" class="java.lang.String"/>
+	<field name="typeproduit_localisation" class="java.lang.String"/>
+	<variable name="VarGenreProduit" class="java.lang.String">
+		<variableExpression><![CDATA[$F{produit_genre}==0?"Commercialisable":"Non Commercialisable"]]></variableExpression>
+	</variable>
+	<variable name="VarInventaire" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{produit_genre}==0?$F{produit_prixUnitaire}*$F{produit_quantiteStock}:0.0]]></variableExpression>
+	</variable>
+	<variable name="utilisateur" class="java.lang.String">
+		<variableExpression><![CDATA[$P{PrmPrenomUtil}+" "+$P{PrmNomUtil}]]></variableExpression>
+	</variable>
+	<variable name="dateEdit" class="java.util.Date">
+		<variableExpression><![CDATA[new Date()]]></variableExpression>
+	</variable>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="38" splitType="Stretch">
+			<staticText>
+				<reportElement x="142" y="0" width="259" height="25" uuid="7e74e532-8663-46a6-b231-fc255b6f2089"/>
+				<textElement>
+					<font size="16" isBold="true"/>
+				</textElement>
+				<text><![CDATA[SOKAH Logistics & Services Sarl]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="35" splitType="Stretch">
+			<staticText>
+				<reportElement x="34" y="0" width="445" height="35" uuid="1a0fdd6d-c12f-408a-bb93-17e92226864c"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="16" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Liste des Produits]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="30" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="138" height="30" uuid="b7a3c9d8-1c43-48f5-a30b-ce1e31fc11ec"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Nom]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="138" y="0" width="86" height="30" uuid="9a18e2de-2656-4316-910f-42e14deebe0a"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Prix Unitaire]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="224" y="0" width="114" height="30" uuid="dc393d59-1dde-4a78-afc5-7c48831a967c"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Quantité en Stock]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="338" y="0" width="117" height="30" uuid="d59dbf72-477a-44a9-b756-c90d8cb7b72a"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Genre du Produit]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="455" y="0" width="100" height="30" uuid="d2904206-f7fb-47c7-b923-964d7afe4eee"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Type de Produit]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="20" splitType="Stretch">
+			<textField isBlankWhenNull="true">
+				<reportElement x="0" y="0" width="138" height="20" uuid="de615049-b090-46db-ac4e-12f990c12952"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{produit_nom}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0" isBlankWhenNull="true">
+				<reportElement x="138" y="0" width="86" height="20" uuid="18f71363-90f6-4211-8e04-6c6801ee7ef0"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{produit_prixUnitaire}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="224" y="0" width="114" height="20" uuid="da9cb2df-9f84-4811-8965-16c130ccd636"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{produit_quantiteStock}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="455" y="0" width="100" height="20" uuid="d916b559-7eff-48ad-a0e6-60cf5cd1746e"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{typeproduit_libelle}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="338" y="0" width="117" height="20" uuid="eb7948b5-23c8-4f0b-8e53-46ff356d3f02"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$V{VarGenreProduit}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="34" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="224" height="33" uuid="4bd87f59-4d06-476f-9462-aa85787e3f94"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Inventaire]]></text>
+			</staticText>
+			<textField pattern="#,##0" isBlankWhenNull="false">
+				<reportElement x="224" y="0" width="331" height="33" uuid="ed814513-ceb4-458f-b8fe-b5a8a33ae260"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{VarInventaire}]]></textFieldExpression>
+			</textField>
+		</band>
+	</columnFooter>
+	<pageFooter>
+		<band height="89" splitType="Stretch">
+			<textField>
+				<reportElement x="301" y="21" width="100" height="20" uuid="9c394420-e302-4d70-9232-653514e11f47"/>
+				<textFieldExpression><![CDATA[$V{utilisateur}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="182" y="21" width="100" height="20" uuid="49e50a35-c406-4b77-aa6c-12b0152f002d"/>
+				<textFieldExpression><![CDATA[$V{dateEdit}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="130" y="21" width="52" height="20" uuid="56beaf00-4e7f-4113-baa9-75f6bba7eb64"/>
+				<text><![CDATA[éditer le ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="277" y="21" width="24" height="20" uuid="c6cd2fa3-4213-4309-b5a0-090f02dccdcb"/>
+				<text><![CDATA[par]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="69" width="555" height="20" uuid="a71dd907-6dd6-4f4a-9be5-4a9600b90210"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[Société SOH KENGNE Achille Hermann Logistics & Services. Capital Social : FCFA 1 000 000]]></text>
+			</staticText>
+		</band>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

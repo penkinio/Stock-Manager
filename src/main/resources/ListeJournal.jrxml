@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ListeJournal" language="groovy" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="bd41fff8-ed9d-4821-a59f-70f0682f14d0">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="PrmNomUtil" class="java.lang.String"/>
+	<parameter name="PrmPrenomUtil" class="java.lang.String"/>
+	<queryString language="SQL">
+		<![CDATA[SELECT
+     journal.`code` AS journal_code,
+     journal.`operation` AS journal_operation,
+     journal.`user` AS journal_user,
+     journal.`dateOperation` AS journal_dateOperation,
+     journal.`description` AS journal_description
+FROM
+     `journal` journal]]>
+	</queryString>
+	<field name="journal_code" class="java.lang.Integer"/>
+	<field name="journal_operation" class="java.lang.String"/>
+	<field name="journal_user" class="java.lang.String"/>
+	<field name="journal_dateOperation" class="java.sql.Date"/>
+	<field name="journal_description" class="java.lang.String"/>
+	<variable name="dateEdit" class="java.util.Date">
+		<variableExpression><![CDATA[new Date()]]></variableExpression>
+	</variable>
+	<variable name="utilisateur" class="java.lang.String">
+		<variableExpression><![CDATA[$P{PrmPrenomUtil}+" "+$P{PrmNomUtil}]]></variableExpression>
+	</variable>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="30" splitType="Stretch">
+			<staticText>
+				<reportElement x="283" y="0" width="259" height="25" uuid="6357e57f-d189-41dd-b4d4-ecf4b4b3bc42"/>
+				<textElement>
+					<font size="16" isBold="true"/>
+				</textElement>
+				<text><![CDATA[SOKAH Logistics & Services Sarl]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="35" splitType="Stretch">
+			<staticText>
+				<reportElement x="192" y="0" width="445" height="35" uuid="d025b7ad-cdd2-4c18-9614-3df2c26e7410"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="16" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Journalisation du Systeme]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="42" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="151" height="42" uuid="501c5ec2-0a0d-48e4-9100-4fc4a64827bd"/>
+				<box>
+					<topPen lineWidth="0.75"/>
+					<leftPen lineWidth="0.75"/>
+					<bottomPen lineWidth="0.75"/>
+					<rightPen lineWidth="0.75"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Operation]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="151" y="0" width="158" height="42" uuid="f8ac42f7-888e-436d-b407-7a3d3407a134"/>
+				<box>
+					<topPen lineWidth="0.75"/>
+					<leftPen lineWidth="0.75"/>
+					<bottomPen lineWidth="0.75"/>
+					<rightPen lineWidth="0.75"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Utilisateur]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="309" y="0" width="133" height="42" uuid="378dae68-fe4b-4c36-a40b-c7b90d5771e2"/>
+				<box>
+					<topPen lineWidth="0.75"/>
+					<leftPen lineWidth="0.75"/>
+					<bottomPen lineWidth="0.75"/>
+					<rightPen lineWidth="0.75"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Date Operation]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="442" y="0" width="360" height="42" uuid="f7eac9ea-0ee5-4fcb-a8a8-c6e2ba32dc90"/>
+				<box>
+					<topPen lineWidth="0.75"/>
+					<leftPen lineWidth="0.75"/>
+					<bottomPen lineWidth="0.75"/>
+					<rightPen lineWidth="0.75"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Description]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="29" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="151" height="29" uuid="c3504b47-4954-4de6-baad-2b78885a925b"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{journal_operation}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="151" y="0" width="158" height="29" uuid="87e952ab-563c-40b5-8bfd-fff115495533"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{journal_user}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="309" y="0" width="133" height="29" uuid="48652f02-300e-42fa-aa4d-258c28a8475c"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{journal_dateOperation}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="442" y="0" width="360" height="29" uuid="385bca47-c461-478e-be05-dd78885a6a06"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{journal_description}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch">
+			<staticText>
+				<reportElement x="135" y="33" width="555" height="20" uuid="651525ae-565b-4111-96f9-829a3467596c"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[Société SOH KENGNE Achille Hermann Logistics & Services. Capital Social : FCFA 1 000 000]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="418" y="0" width="24" height="20" uuid="a01baeb6-d6d1-4b12-ab44-283099a8209f"/>
+				<text><![CDATA[par]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="271" y="0" width="52" height="20" uuid="d5332295-d273-46e1-98ad-c7ad61152a05"/>
+				<text><![CDATA[éditer le ]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="442" y="0" width="100" height="20" uuid="22364977-c9b7-47bc-961f-ab988a532675"/>
+				<textFieldExpression><![CDATA[$V{utilisateur}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="323" y="0" width="100" height="20" uuid="2e2564f7-9b7f-4526-878f-ae5f5bdf81e3"/>
+				<textFieldExpression><![CDATA[$V{dateEdit}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

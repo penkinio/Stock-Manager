@@ -1,0 +1,268 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="listeLivraisonEcheance" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="0515834c-cc57-409a-a14d-c10993fa8006">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="86"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="PrmLivraison" class="java.lang.String"/>
+	<parameter name="PrmNomClient" class="java.lang.String"/>
+	<parameter name="PrmFacture" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[SELECT distinct
+     facture.`code` AS facture_code,
+     facture.`numeroFacture` AS facture_numeroFacture,
+     facture.`nomClient` AS facture_nomClient,
+     facture.`dateFacture` AS facture_dateFacture,
+     facture.`etat` AS facture_etat,
+     livraison.`code` AS livraison_code,
+     livraison.`ordreLivraison` AS livraison_ordreLivraison,
+     livraison.`description` AS livraison_description,
+     livraison.`codeFacture` AS livraison_codeFacture,
+     livraison.`etat` AS livraison_etat,
+     livraison.`dateLivraison` AS livraison_dateLivraison,
+     livraisonecheance.`code` AS livraisonecheance_code,
+     livraisonecheance.`refLivraison` AS livraisonecheance_refLivraison,
+     livraisonecheance.`codeProduit` AS livraisonecheance_codeProduit,
+     livraisonecheance.`quantiteLivre` AS livraisonecheance_quantiteLivre,
+     livraisonecheance.`dateLivraison` AS livraisonecheance_dateLivraison,
+     produit.`code` AS produit_code,
+     produit.`nom` AS produit_nom,
+     produit.`prixUnitaire` AS produit_prixUnitaire,
+     produit.`quantiteStock` AS produit_quantiteStock,
+     produit.`codeType` AS produit_codeType,
+     produit.`genre` AS produit_genre,
+     vente.`codeClient` AS vente_codeClient,
+     vente.`codeProduit` AS vente_codeProduit,
+     vente.`reference` AS vente_reference,
+     vente.`prixUniteVente` AS vente_prixUniteVente,
+     vente.`quantite` AS vente_quantite,
+     vente.`dateVente` AS vente_dateVente,
+     vente.`refFacture` AS vente_refFacture,
+     vente.`tauxRemise` AS vente_tauxRemise,
+     livraison.`code` AS livraison_code,
+     livraison.`ordreLivraison` AS livraison_ordreLivraison,
+     livraison.`description` AS livraison_description,
+     livraison.`codeFacture` AS livraison_codeFacture,
+     livraison.`etat` AS livraison_etat,
+     livraison.`dateLivraison` AS livraison_dateLivraison,
+     facture.`code` AS facture_code,
+     facture.`numeroFacture` AS facture_numeroFacture,
+     facture.`nomClient` AS facture_nomClient,
+     facture.`dateFacture` AS facture_dateFacture,
+     facture.`etat` AS facture_etat
+FROM
+     `livraisonecheance` livraisonecheance
+     INNER JOIN `livraison` livraison ON livraisonecheance.`refLivraison` = livraison.`ordreLivraison`
+     INNER JOIN `facture` facture ON livraison.`codeFacture` = facture.`code`
+	INNER JOIN `vente` vente ON facture.`numeroFacture` = vente.`refFacture`
+	 INNER JOIN `produit` produit ON vente.`codeProduit` = produit.`code`
+WHERE
+     livraison.`ordreLivraison` = $P{PrmLivraison}
+     and facture.`nomClient` = $P{PrmNomClient}]]>
+	</queryString>
+	<field name="facture_code" class="java.lang.Integer"/>
+	<field name="facture_numeroFacture" class="java.lang.String"/>
+	<field name="facture_nomClient" class="java.lang.String"/>
+	<field name="facture_dateFacture" class="java.sql.Date"/>
+	<field name="facture_etat" class="java.lang.Integer"/>
+	<field name="livraison_code" class="java.lang.Integer"/>
+	<field name="livraison_ordreLivraison" class="java.lang.String"/>
+	<field name="livraison_description" class="java.lang.String"/>
+	<field name="livraison_codeFacture" class="java.lang.Integer"/>
+	<field name="livraison_etat" class="java.lang.Integer"/>
+	<field name="livraison_dateLivraison" class="java.sql.Date"/>
+	<field name="livraisonecheance_code" class="java.lang.Integer"/>
+	<field name="livraisonecheance_refLivraison" class="java.lang.String"/>
+	<field name="livraisonecheance_codeProduit" class="java.lang.Integer"/>
+	<field name="livraisonecheance_quantiteLivre" class="java.lang.Integer"/>
+	<field name="livraisonecheance_dateLivraison" class="java.sql.Date"/>
+	<field name="produit_code" class="java.lang.Integer"/>
+	<field name="produit_nom" class="java.lang.String"/>
+	<field name="produit_prixUnitaire" class="java.lang.Double"/>
+	<field name="produit_quantiteStock" class="java.lang.Integer"/>
+	<field name="produit_codeType" class="java.lang.Integer"/>
+	<field name="produit_genre" class="java.lang.Integer"/>
+	<field name="vente_codeClient" class="java.lang.Integer"/>
+	<field name="vente_codeProduit" class="java.lang.Integer"/>
+	<field name="vente_reference" class="java.lang.String"/>
+	<field name="vente_prixUniteVente" class="java.lang.Double"/>
+	<field name="vente_quantite" class="java.lang.Integer"/>
+	<field name="vente_dateVente" class="java.sql.Date"/>
+	<field name="vente_refFacture" class="java.lang.String"/>
+	<field name="vente_tauxRemise" class="java.lang.Double"/>
+	<variable name="VarQteRestant" class="java.lang.Integer">
+		<variableExpression><![CDATA[$F{vente_quantite}-$F{livraisonecheance_quantiteLivre}]]></variableExpression>
+	</variable>
+	<variable name="VarVide" class="java.lang.String">
+		<variableExpression><![CDATA[null]]></variableExpression>
+	</variable>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="39" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="100" height="39" uuid="e2c83f17-0788-4261-88ee-49f2d54777c6"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Code Produit]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="100" y="0" width="143" height="39" uuid="d231de2c-3aa4-492f-aea3-081d466041b9"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Nom Produit]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="243" y="0" width="113" height="39" uuid="15ae441e-57e7-480c-8d90-84ee26ef4d53"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Quantités Commandées]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="356" y="0" width="117" height="39" uuid="516ce196-617f-4b94-b1d1-88078759ec98"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Quantités livées]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="473" y="0" width="138" height="39" uuid="a13cacff-0a12-40a9-9b59-07e2658ddd57"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Quantités restantes à livrées]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="611" y="0" width="154" height="39" uuid="e9b46e56-8200-4513-954e-9de452385371"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Observation]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="20" splitType="Stretch">
+			<textField isBlankWhenNull="true">
+				<reportElement x="0" y="0" width="100" height="20" uuid="9788f3fb-41f6-4447-b780-8fa516258cc1"/>
+				<box>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{produit_code}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="100" y="0" width="143" height="20" uuid="a74b2c6c-a11f-4509-b333-d39686fcbc6b"/>
+				<box>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{produit_nom}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="243" y="0" width="113" height="20" uuid="3c92d330-50be-45ad-8063-b97a03b83aa9"/>
+				<box>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{vente_quantite}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="356" y="0" width="117" height="20" uuid="76c87e5c-ff0c-472a-aa8c-64cc15ace66f"/>
+				<box>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{livraisonecheance_quantiteLivre}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="473" y="0" width="138" height="20" uuid="f4b9a6bb-1130-4b30-8214-5c052ed17de5"/>
+				<box>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$V{VarQteRestant}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="611" y="0" width="154" height="20" uuid="b3855b6e-06f3-4925-b5e3-bb58b6a4e8a0"/>
+				<box>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$V{VarVide}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="20" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>
